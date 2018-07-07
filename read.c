@@ -2111,13 +2111,9 @@ record_files (struct nameseq *filenames, const char *pattern,
              whose commands were preinitialized.  */
           else if (cmds != 0 && f->cmds != 0 && f->is_target)
             {
-              size_t l = strlen (f->name);
-              error (&cmds->fileinfo, l,
-                     _("warning: overriding recipe for target '%s'"),
-                     f->name);
-              error (&f->cmds->fileinfo, l,
-                     _("warning: ignoring old recipe for target '%s'"),
-                     f->name);
+              OS (fatal, flocp,
+                _("multiple recipes provided for target '%s'"),
+                f->name);
             }
 
           /* Defining .DEFAULT with no deps or cmds clears it.  */
